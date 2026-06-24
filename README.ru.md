@@ -4,7 +4,15 @@
 
 AutoBackup следит за папкой, в которой вы работаете, и сохраняет резервные копии с датой в имени, когда вы сохраняете файл. Если Photoshop, Word или другая программа снова и снова перезаписывает один и тот же файл, у вас всё равно останутся последние версии в отдельной папке.
 
-**Как запустить:** дважды щёлкните `AutoBackup.exe`. Устанавливать ничего не нужно.
+## Скачать
+
+[![Скачать здесь!](https://img.shields.io/badge/Скачать-здесь!-2ea44f?style=for-the-badge)](https://github.com/drLemis/AutoBackup/releases/latest)
+
+**[Скачать здесь!](https://github.com/drLemis/AutoBackup/releases/latest)**
+
+1. Нажмите ссылку выше (или зелёную кнопку).
+2. На открывшейся странице нажмите **AutoBackup.exe**, чтобы скачать файл.
+3. Дважды щёлкните **AutoBackup.exe**, чтобы запустить. Устанавливать ничего не нужно.
 
 [![License: NWSL](https://img.shields.io/badge/license-NWSL-orange)](https://github.com/ErikMcClure/bad-licenses/blob/master/NWSL)
 

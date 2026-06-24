@@ -4,7 +4,15 @@
 
 AutoBackup quietly watches the folder where you work and saves dated backup copies when you save a file. If Photoshop, Word, or another program overwrites the same file again and again, you still keep the last few versions in a separate folder.
 
-**How to open:** double-click `AutoBackup.exe`. No install needed.
+## Download
+
+[![Download here!](https://img.shields.io/badge/Download-here!-2ea44f?style=for-the-badge)](https://github.com/drLemis/AutoBackup/releases/latest)
+
+**[Download here!](https://github.com/drLemis/AutoBackup/releases/latest)**
+
+1. Click the link above (or the green button).
+2. On the page that opens, click **AutoBackup.exe** to download it.
+3. Double-click **AutoBackup.exe** to run. Nothing to install.
 
 [![License: NWSL](https://img.shields.io/badge/license-NWSL-orange)](https://github.com/ErikMcClure/bad-licenses/blob/master/NWSL)
 
