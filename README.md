@@ -52,7 +52,16 @@ The line under the buttons tells you what is happening: stopped, watching, or co
 - After you finish saving a file, AutoBackup waits a moment, then saves a copy with the date and time in the name, for example: `MyDrawing_20260526_143022.psd`
 - Folders inside your work folder are copied the same way inside the backup folder.
 - If you save the same file again with no real changes, AutoBackup skips making another copy.
-- Only the **latest 5 copies** of each file are kept; older ones are removed automatically.
+- Temp files, caches (`.git`, `node_modules`, `__pycache__`), and OS junk (Thumbs.db, etc.) are automatically excluded.
+- Set how many copies to keep per file with the **Keep copies** spinner (1–100).
+
+---
+
+## Pause and resume
+
+- Click **PAUSE** to stop watching temporarily — your baseline is kept in memory, so no re-scanning happens when you resume.
+- Click **RESUME** to continue watching instantly.
+- Use pause when you're doing a batch of saves you don't want backed up yet.
 
 ---
 
@@ -60,10 +69,9 @@ The line under the buttons tells you what is happening: stopped, watching, or co
 
 AutoBackup never changes your working files by itself.
 
-1. Click **Open backups** (or open your backup folder in File Explorer).
-2. Find the dated copy you want.
-3. Copy it into your work folder.
-4. Rename it if you need to replace the current file.
+- Click **Restore...** to browse all your backup versions with search, dates, and file sizes.
+- Select a file and click **Restore to...** to save it back to your work folder (or anywhere you choose).
+- Or click **Open** to preview a backup without restoring it.
 
 ---
 
@@ -73,6 +81,9 @@ AutoBackup never changes your working files by itself.
 - The backup folder must **not** sit inside the work folder.
 - If Windows is set to Russian, the app uses Russian; otherwise English.
 - Use the language menu (bottom right) to switch anytime.
+- Check **Start with Windows** to launch AutoBackup automatically on login.
+- Check **Sound** to hear a subtle chime when a backup completes (off by default).
+- The backup folder size is shown next to the copies spinner so you know how much space is used.
 - This is a helper for your project files. It does not replace full PC backups, cloud storage, or professional backup software.
 
 ---
