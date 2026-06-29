@@ -21,7 +21,7 @@ try:
 except ImportError:
     winreg = None  # non-Windows fallback
 
-APP_VERSION = "1.2.0"
+APP_VERSION = "1.2.1"
 
 QUIET_SECONDS = 2.0
 POLL_INTERVAL = 0.5
@@ -152,18 +152,6 @@ def is_startup_enabled():
     except Exception:
         return False
 
-
-def is_dark_mode():
-    """Check if Windows is using dark theme for apps."""
-    if not winreg:
-        return False
-    try:
-        with winreg.OpenKey(winreg.HKEY_CURRENT_USER,
-                           r"Software\Microsoft\Windows\CurrentVersion\Themes\Personalize") as key:
-            val, _ = winreg.QueryValueEx(key, "AppsUseLightTheme")
-            return val == 0
-    except Exception:
-        return False
 
 
 def format_size(size_bytes):
@@ -513,13 +501,18 @@ class AutoBackupApp:
         self._blink_on = False
         self._size_job = None
         self._tray_icon = None
-        self.sound_var = tk.BooleanVar(value=saved_sound)
+
+        # Load persisted preferences (needed before UI build)
+        _prefs = load_prefs()
+        self._saved_src = _prefs[0]
+        self._saved_dst = _prefs[1]
+        self._saved_ver = _prefs[3]
+        self._saved_sound = _prefs[4]
+
+        self.sound_var = tk.BooleanVar(value=self._saved_sound)
         self.startup_var = tk.BooleanVar(value=is_startup_enabled())
 
         # Sound is off by default — user opts in via checkbox
-
-        # Apply dark/light theme based on Windows setting
-        self._apply_theme()
 
         self._build_ui()
         self._set_status("status.stopped")
@@ -537,32 +530,17 @@ class AutoBackupApp:
             if not is_inside(dst, src):
                 self.start()
 
-    def _apply_theme(self):
-        """Apply colors matching Windows dark/light mode."""
-        if is_dark_mode():
-            # Dark mode colors
-            self.root.configure(bg="#1e1e1e")
-            self._bg = "#1e1e1e"
-            self._fg = "#e0e0e0"
-            self._accent = "#2d2d2d"
-        else:
-            # Light mode — use system defaults
-            self.root.configure(bg="#f0f0f0")
-            self._bg = "#f0f0f0"
-            self._fg = "#000000"
-            self._accent = "#ffffff"
-
     def _build_ui(self):
         grid = ttk.Frame(self.root)
         grid.pack(fill="x", padx=8, pady=4)
         grid.columnconfigure(1, weight=1)
 
-        saved_src, saved_dst, _saved_lang, saved_ver, saved_sound = load_prefs()
+        # Use preferences already loaded in __init__
 
         # --- Row 0: Work folder ---
         self.lbl_work = ttk.Label(grid, text=t("label.work_folder"))
         self.lbl_work.grid(row=0, column=0, sticky="w", padx=(0, 6), pady=3)
-        self.src_var = tk.StringVar(value=saved_src)
+        self.src_var = tk.StringVar(value=self._saved_src)
         ttk.Entry(grid, textvariable=self.src_var).grid(row=0, column=1, sticky="ew", pady=3)
         self.btn_browse_src = ttk.Button(grid, text=t("btn.browse"), command=self._pick_src)
         self.btn_browse_src.grid(row=0, column=2, padx=4, pady=3)
@@ -570,7 +548,7 @@ class AutoBackupApp:
         # --- Row 1: Backup folder ---
         self.lbl_backup = ttk.Label(grid, text=t("label.backup_folder"))
         self.lbl_backup.grid(row=1, column=0, sticky="w", padx=(0, 6), pady=3)
-        self.dst_var = tk.StringVar(value=saved_dst)
+        self.dst_var = tk.StringVar(value=self._saved_dst)
         ttk.Entry(grid, textvariable=self.dst_var).grid(row=1, column=1, sticky="ew", pady=3)
         self.btn_browse_dst = ttk.Button(grid, text=t("btn.browse"), command=self._pick_dst)
         self.btn_browse_dst.grid(row=1, column=2, padx=4, pady=3)
@@ -587,7 +565,7 @@ class AutoBackupApp:
         # --- Row 2: Versions + size ---
         self.lbl_versions = ttk.Label(grid, text=t("label.versions"))
         self.lbl_versions.grid(row=2, column=0, sticky="w", padx=(0, 6), pady=3)
-        self.versions_var = tk.IntVar(value=saved_ver)
+        self.versions_var = tk.IntVar(value=self._saved_ver)
         self.versions_spin = ttk.Spinbox(
             grid, from_=MIN_VERSIONS, to=MAX_VERSIONS_LIMIT,
             textvariable=self.versions_var, width=5, justify="center",
@@ -670,11 +648,6 @@ class AutoBackupApp:
         self.log_box = scrolledtext.ScrolledText(
             self.root, height=18, state="disabled", wrap="word",
             font=("Segoe UI", 9),
-            bg=self._accent, fg=self._fg,
-            insertbackground=self._fg,
-            selectbackground="#404040" if is_dark_mode() else "#0078d7",
-            selectforeground=self._fg,
-            relief="flat", borderwidth=1,
         )
         self.log_box.pack(fill="both", expand=True, padx=8, pady=(0, 8))
         self.log_box.bind("<Button-3>", self._on_log_right_click)
