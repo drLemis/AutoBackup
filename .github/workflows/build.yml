@@ -59,7 +59,7 @@ jobs:
       - name: Prepare artifact (macOS)
         if: runner.os == 'macOS'
         run: |
-          ditto -c -k --sequesterRsrc dist/AutoBackup.app dist/AutoBackup.zip
+          mv dist/AutoBackup dist/${{ matrix.asset_name }}
 
       - uses: actions/upload-artifact@v4
         with:
