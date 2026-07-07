@@ -7,10 +7,30 @@ _STRINGS: dict = {}
 _LANG = "en"
 
 # Autonym labels for the language menu (add an entry when adding strings/xx.json).
+# Order here determines language display order in the UI.
 LANG_LABELS = {
     "en": "English",
+    "de": "Deutsch",
+    "fr": "Français",
+    "es": "Español",
+    "pt": "Português",
+    "ar": "العربية",
     "ru": "Русский",
+    "ua": "Українська",
+    "he": "עברית",
+    "zh": "中文",
+    "ja": "日本語",
+    "ko": "한국어",
+    "br": "Português (BR)",
 }
+
+RTL_LANGS = {"ar", "he"}
+
+LANG_ORDER = list(LANG_LABELS.keys())
+
+
+def is_rtl(lang: str = "") -> bool:
+    return (lang or _LANG) in RTL_LANGS
 
 
 def _strings_dir() -> Path:
@@ -23,8 +43,9 @@ def discover_langs() -> tuple[str, ...]:
     base = _strings_dir()
     if not base.is_dir():
         return ("en",)
-    langs = sorted(p.stem for p in base.glob("*.json") if p.stem)
-    return tuple(langs) if langs else ("en",)
+    available = {p.stem for p in base.glob("*.json") if p.stem}
+    ordered = [c for c in LANG_ORDER if c in available]
+    return tuple(ordered) if ordered else ("en",)
 
 
 def lang_label(code: str) -> str:
@@ -40,6 +61,10 @@ def detect_lang() -> str:
         primary = lang_id & 0x3FF
         if primary == 0x19:  # Russian
             return "ru"
+        if primary == 0x01:  # Arabic
+            return "ar"
+        if primary == 0x0D:  # Hebrew
+            return "he"
     except Exception:
         pass
     return "en"

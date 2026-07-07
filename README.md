@@ -1,6 +1,6 @@
 # AutoBackup
 
-**English** | [Русский](README.ru.md)
+**English** | [Deutsch](README.de.md) | [Français](README.fr.md) | [Español](README.es.md) | [Português](README.pt.md) | [Português (BR)](README.br.md) | [العربية](README.ar.md) | [Русский](README.ru.md) | [Українська](README.ua.md) | [עברית](README.he.md) | [中文](README.zh.md) | [日本語](README.ja.md) | [한국어](README.ko.md)
 
 AutoBackup quietly watches the folder where you work and saves dated backup copies when you save a file. If Photoshop, Word, or another program overwrites the same file again and again, you still keep the last few versions in a separate folder.
 
@@ -11,16 +11,16 @@ AutoBackup quietly watches the folder where you work and saves dated backup copi
 **[Download here!](https://github.com/drLemis/AutoBackup/releases/latest)**
 
 1. Click the link above (or the green button).
-2. On the page that opens, click **AutoBackup.exe** to download it.
-3. Double-click **AutoBackup.exe** to run. Nothing to install.
+2. On the page that opens, click the file for your system (Windows `.exe`, Linux binary, or macOS `.zip`).
+3. Run it. Nothing to install.
 
-[![License: NWSL](https://img.shields.io/badge/license-NWSL-orange)](https://github.com/ErikMcClure/bad-licenses/blob/master/NWSL)
+[![License: NWSL](https://img.shields.io/badge/license-NWSL-orange)](LICENSE)
 
 ---
 
 ## What you need
 
-- Windows 10 or newer
+- Windows 10+, Linux (desktop), or macOS
 - A **work folder** (your projects)
 - A **backup folder** on a different location - not inside the work folder (for example an external drive or `D:\Backups`)
 
@@ -59,7 +59,7 @@ The line under the buttons tells you what is happening: stopped, watching, or co
 
 ## Pause and resume
 
-- Click **PAUSE** to stop watching temporarily — your baseline is kept in memory, so no re-scanning happens when you resume.
+- Click **PAUSE** to stop watching temporarily - your baseline is kept in memory, so no re-scanning happens when you resume.
 - Click **RESUME** to continue watching instantly.
 - Use pause when you're doing a batch of saves you don't want backed up yet.
 
@@ -79,8 +79,7 @@ AutoBackup never changes your working files by itself.
 
 - Keep AutoBackup running while you work - closing it stops protection.
 - The backup folder must **not** sit inside the work folder.
-- If Windows is set to Russian, the app uses Russian; otherwise English.
-- Use the language menu (bottom right) to switch anytime.
+- The app auto-detects your Windows display language (Arabic, Hebrew, Russian) or you can switch anytime from the language menu (bottom right).
 - Check **Start with Windows** to launch AutoBackup automatically on login.
 - Check **Sound** to hear a subtle chime when a backup completes (off by default).
 - The backup folder size is shown next to the copies spinner so you know how much space is used.
@@ -90,10 +89,10 @@ AutoBackup never changes your working files by itself.
 
 ## License
 
-**Nuclear Waste Software License v1.0 (NWSL)** - [read license](https://github.com/ErikMcClure/bad-licenses/blob/master/NWSL)
+**Nuclear Waste Software License v1.0 (NWSL)** - [read license](LICENSE)
 
-Copyright (c) 2026 Lemis.
+Copyright (c) 2026 drLemis.
 
 ---
 
-*Developers: [BUILD.md](BUILD.md)*
+
