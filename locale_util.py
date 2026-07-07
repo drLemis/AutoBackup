@@ -84,7 +84,7 @@ def set_locale(lang: str) -> str:
         path = _strings_dir() / "en.json"
         lang = "en"
     if path.is_file():
-        with open(path, encoding="utf-8") as f:
+        with open(path, encoding="utf-8-sig") as f:
             _STRINGS = json.load(f)
         _LANG = lang
     else:
